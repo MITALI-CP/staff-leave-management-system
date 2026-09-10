@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Leave Status</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+        }
+
+        .container {
+            width: 90%;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #343a40;
+            color: white;
+        }
+
+        .status {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .Pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .Approved {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .Rejected {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .Cancelled {
+            background: #dee2e6;
+            color: #495057;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-size: 13px;
+        }
+
+        .cancel {
+            background: #ffc107;
+            color: black;
+        }
+
+        .back {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>My Leave Applications</h2>
+
+    <table>
+        <tr>
+            <th>Leave Type</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Days</th> <!-- NEW -->
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Action</th> <!-- NEW -->
+        </tr>
+
+        {% for leave in leaves %}
+        <tr>
+            <td>{{ leave.leave_type }}</td>
+            <td>{{ leave.start_date }}</td>
+            <td>{{ leave.end_date }}</td>
+
+            <!-- TOTAL DAYS -->
+            <td>{{ leave.total_days }}</td>
+
+            <td>{{ leave.reason }}</td>
+
+            <!-- STATUS -->
+            <td>
+                <span class="status {{ leave.status }}">
+                    {{ leave.status }}
+                </span>
+            </td>
+
+            <!-- CANCEL BUTTON -->
+            <td>
+                {% if leave.status == 'Pending' %}
+                <a href="{% url 'cancel_leave' leave.id %}"
+                   onclick="return confirm('Cancel this leave?')"
+                   class="btn cancel">
+                   Cancel
+                </a>
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">No leave applications found</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="/staff-dashboard/" class="back">⬅ Back to Dashboard</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff Dashboard</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #667eea, #764ba2);
+        }
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .navbar {
+            background-color: #212529;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+
+        .stats-card {
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .total { background: #0d6efd; }
+        .pending { background: #ffc107; color: black; }
+        .approved { background: #198754; }
+        .balance { background: #6f42c1; }
+
+        h3 {
+            color: white;
+        }
+
+        .bell {
+            position: relative;
+            margin-right: 15px;
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- 🔹 NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand">SLMS - Staff</a>
+
+        <div class="ms-auto d-flex align-items-center">
+
+            <!-- 🔔 Notifications -->
+            <div class="bell">
+                {% if notifications %}
+                    <a href="{% url 'notifications' %}" class="btn btn-light btn-sm">
+                        🔔
+                    </a>
+                    {% if notifications > 0 %}
+                        <span class="badge bg-danger">
+                            {{ notifications }}
+                        </span>
+                    {% endif %}
+                {% else %}
+                    <!-- fallback (no error if URL missing) -->
+                    <a href="#" class="btn btn-light btn-sm">🔔</a>
+                {% endif %}
+            </div>
+
+            <!-- 👤 Profile -->
+            <a href="{% url 'profile' %}" class="btn btn-warning btn-sm me-2">
+                Profile
+            </a>
+
+            <!-- 🚪 Logout -->
+            <a href="{% url 'logout' %}" class="btn btn-danger btn-sm">
+                Logout
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- 🔹 CONTENT -->
+<div class="container mt-5">
+
+    <h3 class="text-center mb-4">
+        Welcome, {{ request.user.username }}
+    </h3>
+
+    <!-- 📊 STATS -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-3">
+            <div class="stats-card total">
+                Total Leaves
+                <h2>{{ total|default:0 }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stats-card pending">
+                Pending
+                <h2>{{ pending|default:0 }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stats-card approved">
+                Approved
+                <h2>{{ approved|default:0 }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stats-card balance">
+                Remaining
+                <h2>{{ remaining|default:request.user.profile.leave_balance }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 📊 LEAVE BALANCE -->
+    <div class="card p-3 mb-4 text-center">
+        <h5>Leave Balance Details</h5>
+        <p>Total: {{ total|default:20 }}</p>
+        <p>Used: {{ used|default:0 }}</p>
+        <p>Remaining: {{ remaining|default:request.user.profile.leave_balance }}</p>
+    </div>
+
+    <!-- 🔹 ACTION CARDS -->
+    <div class="row g-4 justify-content-center">
+
+        <div class="col-md-3">
+            <div class="card text-center p-4">
+                <h5>Apply Leave</h5>
+                <p>Submit a new leave request</p>
+                <a href="{% url 'apply_leave' %}" class="btn btn-primary">
+                    Apply
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-center p-4">
+                <h5>My Leaves</h5>
+                <p>Track your leave requests</p>
+                <a href="{% url 'my_leaves' %}" class="btn btn-success">
+                    View
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-center p-4">
+                <h5>Leave Calendar</h5>
+                <p>View leave schedule</p>
+                <a href="{% url 'leave_calendar' %}" class="btn btn-info">
+                    Open
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-center p-4">
+                <h5>Notifications</h5>
+                <p>Check updates</p>
+
+                {% if notifications %}
+                    <a href="{% url 'notifications' %}" class="btn btn-warning">
+                        Open
+                    </a>
+                {% else %}
+                    <a href="#" class="btn btn-warning">
+                        Open
+                    </a>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

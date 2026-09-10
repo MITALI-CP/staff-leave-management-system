@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+
+<h2>👤 User Profile</h2>
+
+<p><b>Username:</b> {{ request.user.username }}</p>
+<p><b>Email:</b> {{ request.user.email }}</p>
+<p><b>Role:</b> {{ request.user.profile.role }}</p>
+<p><b>Leave Balance:</b> {{ request.user.profile.leave_balance }}</p>
+
+<br>
+<a href="{% url 'staff_dashboard' %}">⬅ Back</a>
+
+</body>
+</html>

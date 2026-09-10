@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SLMS | Dhee Coding Lab</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: grey;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(
+                rgba(0, 0, 0, 0.55),
+                rgba(0, 0, 0, 0.55)
+            ),
+            url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .hero a {
+            padding: 12px 25px;
+            background: black;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        .hero a:hover {
+            background: grey;
+        }
+
+        /* FOOTER */
+        footer {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- HERO SECTION -->
+
+
+<div class="hero">
+    <div>
+        <h1>SLMS</h1>
+        <p>Staff Leave Management System</p>
+
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+    </div>
+</div>
+<br><br><br><br>
+
+
+
+
+<!-- FOOTER -->
+<footer>
+     @ copyright 2026 Dhee Coding Lab (DCL) | All Rights Reserved
+</footer>
+
+</body>
+</html>
