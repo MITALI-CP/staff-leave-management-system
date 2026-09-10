@@ -173,3 +173,13 @@ Through this project, I gained practical experience in:
 - Advanced role-based access control
 - Improved reporting and analytics
 - Cloud deployment
+
+  ---
+
+## 👩‍💻 Author
+
+**Mitali Rangani**
+
+B.E. – Artificial Intelligence & Machine Learning
+
+GitHub: [MITALI-CP](https://github.com/MITALI-CP)
